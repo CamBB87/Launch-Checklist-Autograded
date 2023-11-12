@@ -17,7 +17,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
                  <img src="">
     */
 
-    const planets = myFetch();
+
     let missionTarget = document.getElementById("missionTarget");
     let missionHTML = `<h2>Mission Destination</h2>
                         <ol>
@@ -29,7 +29,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
                          </ol>
                         <img src="${imageUrl}">`
 
-    missionTarget = missionHTML;
+    return missionTarget = missionHTML;
 
 }
 
@@ -54,26 +54,35 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     let faultyItems = document.getElementById("faultyItems");
 
     if (validateInput(pilot) === "Not a Number" &&
-        validateInput(copilot) === "Not a Number" && validateInput(fuelLevel) === "Is a Number" &&
+        validateInput(copilot) === "Not a Number" &&
+        validateInput(fuelLevel) === "Is a Number" &&
         validateInput(cargoLevel) === "Is a Number") {
         pilotStatus.innerHTML = `${pilot}`;
         copilotStatus.innerHTML = `${copilot}`;
+        let swich = true;
         if (fuelLevel < 10000) {
             faultyItems.style.visibility = "visible";
             launchStatus.style.color = "red";
             launchStatus.innerHTML = "Shuttle not ready for launch";
             fuelStatus.innerHTML = "sorry kid need more juice";
+            swich = false;
         };
         if (cargoLevel > 10000) {
             faultyItems.style.visibility = "visible";
             cargoStatus.innerHTML = "you don't need that many things in space";
             launchStatus.innerHTML = "Shuttle not ready for launch";
             launchStatus.style = "red";
+            swich = false;
         };
-        launchStatus.innerHTML = "Shuttle is ready for launch";
-        launchStatus.style = "green";
-    } else {
+        if (swich === true) {
+            launchStatus.innerHTML = "Shuttle is ready for launch";
+            launchStatus.style = "green";
+        } else if (swich === false) {
+            alert("please check list below for invalid values");
+        }
 
+    } else {
+        alert("pleasae make sure all fields are filled in");
     }
 
 
